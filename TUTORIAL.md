@@ -20,7 +20,25 @@ Run the following command to train the RL agent and test its performance:
 python train_and_test.py
 ```
 
-- This will train a PPO agent (from stable-baselines3) on a custom gymnasium environment that mimics a linear regression problem.
+- By default, this will train a PPO agent (from stable-baselines3) for 5000 steps with a learning rate of 0.0003.
+- To set a custom number of training steps, use the `--steps` argument. For example, to train for 10000 steps:
+
+```bash
+python train_and_test.py --steps 10000
+```
+
+- To set a custom learning rate, use the `--lr` argument. For example, to use a learning rate of 0.001:
+
+```bash
+python train_and_test.py --lr 0.001
+```
+
+- You can combine both arguments:
+
+```bash
+python train_and_test.py --steps 10000 --lr 0.001
+```
+
 - After training, the agent will be tested on new data.
 - Results (test MSE and a scatter plot of predictions vs. true values) will be saved in the `results/` directory.
 
