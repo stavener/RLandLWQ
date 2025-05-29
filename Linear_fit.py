@@ -47,6 +47,14 @@ def least_squares_fit(datafile="lindata", out_file="lsqdata"):
     plt.savefig(out_file + ".png")
     plt.close()
 
+class CustomMLPRegressor(MLPRegressor):
+    """
+    Subclass of MLPRegressor for potential customization.
+    """
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+    # You can override methods here if needed
+
 def mlp_fit(datafile="lindata", out_file="MLPdata"):
     """
     Fit an MLP to (x, y) data from file, evaluate at 100 points in [-1, 1], plot, and save to out_file.
@@ -54,7 +62,7 @@ def mlp_fit(datafile="lindata", out_file="MLPdata"):
     data = np.loadtxt(datafile, skiprows=1)
     x, y = data[:, 0], data[:, 1]
     x = x.reshape(-1, 1)
-    mlp = MLPRegressor(hidden_layer_sizes=(32, 32), activation='relu', max_iter=5000, random_state=0)
+    mlp = CustomMLPRegressor(hidden_layer_sizes=(32, 32), activation='relu', max_iter=5000, random_state=0)
     mlp.fit(x, y)
     x_fit = np.linspace(-1, 1, 100).reshape(-1, 1)
     y_fit = mlp.predict(x_fit)
