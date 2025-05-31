@@ -5,6 +5,9 @@ import json
 # -----------------------------
 # User Input or File Input
 # -----------------------------
+
+# This script requires user input for parameters or reads them from a JSON file.
+
 def get_inputs():
     """
     Prompt user for input or load from a JSON file.
