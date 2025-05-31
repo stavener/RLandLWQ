@@ -1,4 +1,4 @@
-import torch
+ls -lambdaimport torch
 import numpy as np
 
 # Get user input
@@ -6,7 +6,6 @@ x = float(input("Enter value for x: "))
 y = float(input("Enter value for y: "))
 
 # Convert to tensors
-x_tensor = torch.tensor([[x]])  # shape (1,1)
 y_tensor = torch.tensor([[y]])  # shape (1,1)
 
 # Let user define the shape of alpha

@@ -3,18 +3,39 @@ import jax
 import jax.numpy as jnp
 from jax import grad
 from scipy.optimize import minimize
+import json
 
 # -----------------------------
-# User Input
+# User Input or File Input
 # -----------------------------
-# Get problem dimensions and parameters from user
-p = int(input("Enter value for p: "))  # Number of input features
-q = int(input("Enter value for q: "))  # Number of output features
-m = int(float(input("Enter value for m: ")))  # Number of data samples
-K = int(float(input("Enter value for K: ")))  # Number of F applications
+def get_inputs():
+    """
+    Prompt user for input or load from a JSON file.
+    Returns: dict with keys p, q, m, K, a, b
+    """
+    use_file = input("Read input from file? (y/n): ").strip().lower()
+    if use_file == 'y':
+        filename = input("Enter input JSON filename (default: 'input_params.json'): ").strip() or 'input_params.json'
+        with open(filename, 'r') as f:
+            params = json.load(f)
+        # Validate required keys
+        for k in ['p', 'q', 'm', 'K', 'a', 'b']:
+            if k not in params:
+                raise ValueError(f"Missing key '{k}' in input file.")
+        return params
+    else:
+        # Prompt user for each parameter
+        p = int(input("Enter value for p: "))
+        q = int(input("Enter value for q: "))
+        m = int(float(input("Enter value for m: ")))
+        K = int(float(input("Enter value for K: ")))
+        a = float(input("Enter value for a: "))
+        b = float(input("Enter value for b: "))
+        return dict(p=p, q=q, m=m, K=K, a=a, b=b)
 
-a = float(input("Enter value for a: "))  # Parameter a
-b = float(input("Enter value for b: "))  # Parameter b
+# Get parameters
+params = get_inputs()
+p, q, m, K, a, b = params.values()
 
 # -----------------------------
 # Data Loading
